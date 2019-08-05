@@ -1,0 +1,16 @@
+Package: bracer
+Title: Bash-style Brace Expansion
+Version: 0.1.0-0
+Authors@R: 
+    person(given = "Trevor",
+           family = "Davis",
+           role = c("aut", "cre"),
+           email = "trevor.l.davis@gmail.com")
+Description: Provides partial support for Bash-style brace expansions.
+Imports: stringr
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat
+RoxygenNote: 6.1.1
