@@ -53,12 +53,8 @@ expand_braces("Foo{a..f..2}{-01..5}")
 To install the developmental version use the following commands in R:
 
 
-```
-## Error: HTTP error 404.
-##   Not Found
-## 
-##   Did you spell the repo owner (`trevorld`) and repo name (`bracer`) correctly?
-##   - If spelling is correct, check that you have the required permissions to access the repo.
+```r
+remotes::install_github("trevorld/bracer")
 ```
 
 ``bracer`` currently does not properly support the proper Bash-style brace expansion under several conditions such as:
