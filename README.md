@@ -2,11 +2,8 @@ bracer
 ======
 
 [![Travis-CI Build Status](https://travis-ci.org/trevorld/bracer.png?branch=master)](https://travis-ci.org/trevorld/bracer)
-
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/trevorld/bracer?branch=master&svg=true)](https://ci.appveyor.com/project/trevorld/bracer)
-
 [![Coverage Status](https://img.shields.io/codecov/c/github/trevorld/bracer/master.svg)](https://codecov.io/github/trevorld/bracer?branch=master)
-
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 ``bracer`` provides partial support for Bash-style brace expansion in R.
