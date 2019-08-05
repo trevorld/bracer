@@ -59,7 +59,7 @@ remotes::install_github("trevorld/bracer")
 
 ``bracer`` currently does not properly support the proper Bash-style brace expansion under several conditions such as:
 
-1. Nested braces e.g. ``{{a..d},{1..2}``
+1. Nested braces e.g. ``{{a..d},{1..2}}``
 2. Unbalanced braces e.g. ``{a,d}}``
 3. Using quotes to escape terms e.g. ``{'a,b','c'}``
 4. Including a non-escaping backslash ahead of a brace or comma e.g. ``{a,b\\\\\\\\}}``
