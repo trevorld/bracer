@@ -1,20 +1,27 @@
 #' Bash-style brace expansion
 #'
-#' \code{expand_braces} provides partial support for
-#' Bash-style brace expansion.
+#' \code{expand_braces} performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to quickly generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
+
 #' @param string input character vector
 #' @return A character vector
 #' @examples
 #'   expand_braces("Foo{A..F}")
 #'   expand_braces("Foo{01..10}")
-#'   expand_braces("Foo{A..F}{1..5..2}")
-#'   expand_braces("Foo{a..f..2}{-01..5}")
+#'   expand_braces("Foo{A..E..2}{1..5..2}")
+#'   expand_braces("Foo{-01..1}")
+#'   expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
 #' @import stringr
 #' @export
 expand_braces <- function(string) {
-    # Find brace starts and ends
-    brace_token <- "(?<!\\\\)\\{([^}]|\\\\\\})*(?<!\\\\)\\}"
-    locations <- str_locate_all(string, brace_token)[[1]]
+    expand_braces_helper(string)
+}
+brace_token <- "(?<!\\\\)\\{([^}]|\\\\\\})*(?<!\\\\)\\}"
+has_brace <- function(string) {
+    str_detect(string, brace_token)
+}
+
+expand_braces_helper <- function(string, process=TRUE) {
+    locations <- get_locations(string) # Find brace starts and ends
     n <- nrow(locations)
     if (n == 0) return(process_string(string))
     braced <- vector("list", n)
@@ -30,9 +37,43 @@ expand_braces <- function(string) {
 
     df <- expand.grid(rev(braced), stringsAsFactors=FALSE)
     value <- preamble
-    for (ii in seq(n))
+    for (ii in seq(n)) {
         value <- paste0(value, df[,n+1-ii], non_braced[ii])
-    process_string(value)
+    }
+    if (process) {
+        process_string(value)
+    } else {
+        value
+    }
+}
+
+data_frame <- function(...) { data.frame(..., stringsAsFactors=FALSE) }
+
+# get locations of top level braces
+get_locations <- function(string) {
+    left_brace <- "(?<!\\\\)\\{"
+    left_locations <- str_locate_all(string, left_brace)[[1]]
+    if(nrow(left_locations)==0) { return(matrix(numeric(0), ncol=2)) }
+    df_left <- data_frame(index=left_locations[,1], char="{")
+    right_brace <- "(?<!\\\\)\\}"
+    right_locations <- str_locate_all(string, right_brace)[[1]]
+    if(nrow(right_locations)==0) { return(matrix(numeric(0), ncol=2)) }
+    df_right <- data_frame(index=right_locations[,1], char="}")
+    df <- rbind(df_left, df_right)
+    df <- df[order(df$index),]
+    df$level <- 0
+    level <- 1
+    for (ii in seq(length=nrow(df))) {
+        if (df[ii,2]=="{") {
+            df[ii,3] <- level
+            level <- level + 1
+        } else {
+            level <- level - 1
+            df[ii,3] <- level
+        }
+    }
+    df <- df[which(df$level==1),]
+    matrix(df$index, ncol=2, byrow=TRUE)
 }
 
 zero_pad <- function(numbers, width=2) {
@@ -54,18 +95,29 @@ expand_brace <- function(string, locations, i) {
     il <- locations[i,1]
     ir <- locations[i,2]
     brace <- str_sub(string, il, ir)
-    if (str_detect(brace, "(?<!\\\\),")) { # comma split
-        expand_comma(brace)
-    } else if (str_detect(brace, "\\.{2}")) {
-        expand_periods(brace)
+    inner <- str_sub(brace, 2, -2)
+    if (has_comma(inner)) { 
+        expand_comma(inner)
+    } else if (has_periods(inner)) {
+        expand_periods(inner)
+    } else if (has_brace(inner)) {
+        paste0("{", expand_braces_helper(inner, FALSE), "}")
     } else {
         brace
     }
 }
 
+comma_token <- "(?<!\\\\),(?![^\\{]*\\})"
+# comma_token <- "(?<!\\\\),(?![^\\{]*[^\\\\]\\})"
+has_comma <- function(string) {
+    str_detect(string, comma_token)
+}
+
 expand_comma <- function(string) {
-    string <- str_sub(string, 2, -2)
-    str_split(string, "(?<!\\\\),")[[1]]
+    elements <- str_split(string, comma_token)[[1]]
+    elements <- lapply(elements, expand_braces_helper, FALSE)
+    elements <- c(elements, recursive=TRUE)
+    elements
 }
 
 ASCII <- c(" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", 
@@ -76,20 +128,28 @@ has_pad <- function(digits) {
     any(str_detect(digits[1:2], "^-?0[0-9]+"))
 }
 
+alpha2_token <- "^[[:alpha:]]\\.{2}[[:alpha:]]$"
+alpha3_token <- "^[[:alpha:]]\\.{2}[[:alpha:]]\\.{2}-?[[:digit:]]+$"
+digit2_token <- "^-?[[:digit:]]+\\.{2}-?[[:digit:]]+$"
+digit3_token <- "^-?[[:digit:]]+\\.{2}-?[[:digit:]]+\\.{2}-?[[:digit:]]+$"
+period_token <- paste(alpha2_token, alpha3_token, digit2_token, digit3_token, sep="|")
+
+has_periods <- function(string) {
+    str_detect(string, period_token)
+}
+
 expand_periods <- function(string) {
-    if (str_detect(string, "\\{[[:alpha:]]\\.{2}[[:alpha:]]\\}")) {
-        i_left <- match(str_sub(string, 2, 2), ASCII)
-        i_right <- match(str_sub(string, 5, 5), ASCII)
+    if (str_detect(string, alpha2_token)) {
+        i_left <- match(str_sub(string, 1, 1), ASCII)
+        i_right <- match(str_sub(string, 4, 4), ASCII)
         ASCII[i_left:i_right]
-    } else if (str_detect(string, "\\{[[:alpha:]]\\.{2}[[:alpha:]]\\.{2}-?[[:digit:]]+\\}")) {
-        string <- str_sub(string, 2, -2)
+    } else if (str_detect(string, alpha3_token)) {
         items <- str_split(string, "\\.{2}")[[1]]
         i_left <- match(items[1], ASCII)
         i_right <- match(items[2], ASCII)
         by <- sign(i_right-i_left)*abs(as.numeric(items[3]))
         ASCII[seq(i_left,i_right,by)]
-    } else if (str_detect(string, "\\{-?[[:digit:]]+\\.{2}-?[[:digit:]]+\\}")) {
-        string <- str_sub(string, 2, -2)
+    } else if (str_detect(string, digit2_token)) {
         digits <- str_split(string, "\\.{2}")[[1]]
         numbers <- as.numeric(digits)
         values <- seq(numbers[1], numbers[2])
@@ -98,8 +158,7 @@ expand_periods <- function(string) {
         } else {
             values
         }
-    } else if (str_detect(string, "\\{-?[[:digit:]]+\\.{2}-?[[:digit:]]+\\.{2}-?[[:digit:]]+\\}")) {
-        string <- str_sub(string, 2, -2)
+    } else if (str_detect(string, digit3_token)) {
         digits <- str_split(string, "\\.{2}")[[1]]
         numbers <- as.numeric(digits)
         by <- sign(numbers[2]-numbers[1])*abs(numbers[3])
@@ -110,7 +169,7 @@ expand_periods <- function(string) {
             values
         }
     } else {
-        string
+        paste0("{", string, "}")
     }
 }
 

@@ -1,4 +1,6 @@
+^cran-comments.rst$
 ^README.Rmd$
+^README.html$
 ^Rakefile$
 ^notes.txt$
 ^LICENSE.md$

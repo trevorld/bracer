@@ -1,3 +1,8 @@
+bracer 1.0.1
+============
+
+* ``expand_braces`` can now parse nested braces.
+
 bracer 0.1
 ==========
 

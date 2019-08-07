@@ -13,12 +13,12 @@ expand_braces(string)
 A character vector
 }
 \description{
-\code{expand_braces} provides partial support for
-Bash-style brace expansion.
+\code{expand_braces} performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to quickly generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 }
 \examples{
   expand_braces("Foo{A..F}")
   expand_braces("Foo{01..10}")
-  expand_braces("Foo{A..F}{1..5..2}")
-  expand_braces("Foo{a..f..2}{-01..5}")
+  expand_braces("Foo{A..E..2}{1..5..2}")
+  expand_braces("Foo{-01..1}")
+  expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
 }

@@ -1,12 +1,12 @@
 Package: bracer
-Title: Bash-style Brace Expansion
-Version: 0.1.0-0
+Title: Brace Expansions
+Version: 1.0.1
 Authors@R: 
     person(given = "Trevor",
            family = "Davis",
            role = c("aut", "cre"),
            email = "trevor.l.davis@gmail.com")
-Description: Provides partial support for Bash-style brace expansions.
+Description: Performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to quickly generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 Imports: stringr
 License: MIT + file LICENSE
 Encoding: UTF-8
