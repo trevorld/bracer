@@ -13,7 +13,7 @@ expand_braces(string)
 A character vector
 }
 \description{
-\code{expand_braces} performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to quickly generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
+\code{expand_braces} performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to concisely generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 }
 \examples{
   expand_braces("Foo{A..F}")

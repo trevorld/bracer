@@ -1,6 +1,7 @@
 bracer
 ======
 
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version/bracer)](https://cran.r-project.org/package=bracer)
 [![Travis-CI Build Status](https://travis-ci.org/trevorld/bracer.png?branch=master)](https://travis-ci.org/trevorld/bracer)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/trevorld/bracer?branch=master&svg=true)](https://ci.appveyor.com/project/trevorld/bracer)
 [![Coverage Status](https://img.shields.io/codecov/c/github/trevorld/bracer/master.svg)](https://codecov.io/github/trevorld/bracer?branch=master)
