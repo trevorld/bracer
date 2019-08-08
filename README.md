@@ -69,8 +69,8 @@ remotes::install_github("trevorld/bracer")
 
 ``bracer`` currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 
-1. Unbalanced braces e.g. ``{a,d}}``
-2. Using surrounding quotes to escape terms e.g. ``{'a,b','c'}``
-3. Escaped *inner* braces e.g. ``{a,b\\}c,d}``
-4. (Non-escaping) backslashes before braces e.g. ``{a,\\\\{a,b}c}'``
+1. Unbalanced braces e.g. ``{{a,d}`` (but you could use an escaped brace instead ``\\{{a,d}``)
+2. Using surrounding quotes to escape terms e.g. ``{'a,b','c'}`` (but you could use an escaped comma instead  ``{a\\,b,c}``)
+3. Escaped braces within comma-separated lists e.g. ``{a,b\\}c,d}``
+4. (Non-escaping) backslashes before braces e.g. ``{a,\\\\{a,b}c}``
 5. Sequences from letters to non-letter ASCII characters e.g. ``X{a..#}X``
