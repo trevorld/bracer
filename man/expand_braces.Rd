@@ -2,18 +2,24 @@
 % Please edit documentation in R/expand.R
 \name{expand_braces}
 \alias{expand_braces}
+\alias{str_expand_braces}
 \title{Bash-style brace expansion}
 \usage{
 expand_braces(string)
+
+str_expand_braces(string)
 }
 \arguments{
 \item{string}{input character vector}
 }
 \value{
-A character vector
+\code{expand_braces} returns a character vector while 
+        \code{str_expand_braces} returns a list of character vectors.
 }
 \description{
-\code{expand_braces} performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to concisely generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
+\code{expand_braces} performs brace expansions on strings, \code{str_expand_braces} is an alternate function that returns a list of character vectors.  
+Made popular by Unix shells, brace expansion allows users to concisely generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  
+The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 }
 \examples{
   expand_braces("Foo{A..F}")
@@ -21,4 +27,6 @@ A character vector
   expand_braces("Foo{A..E..2}{1..5..2}")
   expand_braces("Foo{-01..1}")
   expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
+  expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+  str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
 }

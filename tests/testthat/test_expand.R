@@ -3,6 +3,11 @@ test_that("Some simple test cases", {
     expect_equal(expand_braces("a{2..4}"), c("a2", "a3", "a4"))
     expect_equal(expand_braces("{a..d}4"), c("a4", "b4", "c4", "d4"))
     expect_equal(expand_braces("{C..F}"), c("C", "D", "E", "F"))
+
+    eb <- expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+    seb <- str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+    expect_equal(length(eb), 9)
+    expect_equal(length(seb), 3)
 })
 
 test_that("Bash 4.3 unit tests", {
