@@ -9,6 +9,9 @@ bracer
 
 ``bracer`` provides support for performing [brace expansions](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Brace-Expansion) on strings in R.
 
+Examples
+--------
+
 
 ```r
 library("bracer")
@@ -53,6 +56,47 @@ expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
 ## [6] "Foobiz.bash"
 ```
 
+``expand_braces`` is vectorized and returns one big character vector of all the brace expansions.  ``str_expand_braces`` is an alternative that returns a list of character vectors.
+
+
+```r
+expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+```
+
+```
+## [1] "FooA"     "FooB"     "FooC"     "FooD"     "FooE"     "FooF"    
+## [7] "Bar.py"   "Bar.bash" "{{Biz}}"
+```
+
+```r
+str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+```
+
+```
+## [[1]]
+## [1] "FooA" "FooB" "FooC" "FooD" "FooE" "FooF"
+## 
+## [[2]]
+## [1] "Bar.py"   "Bar.bash"
+## 
+## [[3]]
+## [1] "{{Biz}}"
+```
+
+``glob`` is a wrapper around ``Sys.glob`` that uses ``expand_braces`` to support both brace and wildcard expansion on file paths.
+
+
+```r
+glob("R/*.{R,r,S,s}")
+```
+
+```
+## [1] "R/expand.R" "R/glob.R"
+```
+
+Installation          
+------------
+
 To install the release version on CRAN use the following command in R:
 
 
@@ -66,6 +110,9 @@ To install the developmental version use the following command in R:
 ```r
 remotes::install_github("trevorld/bracer")
 ```
+
+Caveats
+-------
 
 ``bracer`` currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 
