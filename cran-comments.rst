@@ -1,5 +1,3 @@
-Resubmission.  Elaborated the 'Description' field as requested.
-
 **Test environments**
 
 * local (linux, R 3.4.4) 
@@ -11,4 +9,4 @@ Resubmission.  Elaborated the 'Description' field as requested.
 
 **R CMD check --as-cran results**
 
-Status: 1 NOTE (that this is a new submission)
+OK
