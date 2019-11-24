@@ -6,3 +6,4 @@
 ^LICENSE.md$
 ^.appveyor.yml$
 ^.travis.yml$
+^.lintr$
