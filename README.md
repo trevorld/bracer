@@ -15,6 +15,7 @@ Examples
 
 ```r
 library("bracer")
+options(bracer.engine = "r")
 expand_braces("Foo{A..F}")
 ```
 
@@ -27,8 +28,8 @@ expand_braces("Foo{01..10}")
 ```
 
 ```
-##  [1] "Foo01" "Foo02" "Foo03" "Foo04" "Foo05" "Foo06" "Foo07" "Foo08"
-##  [9] "Foo09" "Foo10"
+##  [1] "Foo01" "Foo02" "Foo03" "Foo04" "Foo05" "Foo06" "Foo07" "Foo08" "Foo09"
+## [10] "Foo10"
 ```
 
 ```r
@@ -64,8 +65,8 @@ expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
 ```
 
 ```
-## [1] "FooA"     "FooB"     "FooC"     "FooD"     "FooE"     "FooF"    
-## [7] "Bar.py"   "Bar.bash" "{{Biz}}"
+## [1] "FooA"     "FooB"     "FooC"     "FooD"     "FooE"     "FooF"     "Bar.py"  
+## [8] "Bar.bash" "{{Biz}}"
 ```
 
 ```r
@@ -91,7 +92,7 @@ glob("R/*.{R,r,S,s}")
 ```
 
 ```
-## [1] "R/expand.R" "R/glob.R"
+## [1] "R/engine-r.R"  "R/engine-v8.R" "R/expand.R"    "R/glob.R"
 ```
 
 Installation          
@@ -111,13 +112,112 @@ To install the developmental version use the following command in R:
 remotes::install_github("trevorld/bracer")
 ```
 
-Caveats
--------
+Installing the suggested ``V8`` package will enable use of the javascript alternative parser:
 
-``bracer`` currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
+
+```r
+install.packages("V8")
+```
+
+Limitations of pure R parser and alternative javascript parser
+--------------------------------------------------------------
+
+The ``bracer`` pure R parser currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 
 1. Unbalanced braces e.g. ``{{a,d}`` (but you could use an escaped brace instead ``\\{{a,d}``)
 2. Using surrounding quotes to escape terms e.g. ``{'a,b','c'}`` (but you could use an escaped comma instead  ``{a\\,b,c}``)
 3. Escaped braces within comma-separated lists e.g. ``{a,b\\}c,d}``
 4. (Non-escaping) backslashes before braces e.g. ``{a,\\\\{a,b}c}``
 5. Sequences from letters to non-letter ASCII characters e.g. ``X{a..#}X``
+
+
+```r
+options(bracer.engine = "r")
+expand_braces("{{a,d}")
+```
+
+```
+## [1] "{{a,d}"
+```
+
+```r
+expand_braces("{'a,b','c'}")
+```
+
+```
+## [1] "'a"  "b'"  "'c'"
+```
+
+```r
+expand_braces("{a,b\\}c,d}")
+```
+
+```
+## [1] "a,b}c" "d"
+```
+
+```r
+expand_braces("{a,\\\\{a,b}c}")
+```
+
+```
+## [1] "ac}"  "{ac}" "bc}"
+```
+
+```r
+expand_braces("X{a..#}X")
+```
+
+```
+## [1] "X{a..#}X"
+```
+
+However if the 'V8' suggested R package is installed we can instead use an embedded version of the [braces](https://github.com/micromatch/braces) Javascript library which can correctly handle these edge cases.  To do so we need to set the bracer "engine" to "v8".
+
+
+```r
+options(bracer.engine = "v8")
+expand_braces("{{a,d}")
+```
+
+```
+## [1] "{a" "{d"
+```
+
+```r
+expand_braces("{'a,b','c'}")
+```
+
+```
+## [1] "a,b" "c"
+```
+
+```r
+expand_braces("{a,b\\}c,d}")
+```
+
+```
+## [1] "a"   "b}c" "d"
+```
+
+```r
+expand_braces("{a,\\\\{a,b}c}")
+```
+
+```
+## [1] "a"    "\\ac" "\\bc"
+```
+
+```r
+expand_braces("X{a..#}X")
+```
+
+```
+##  [1] "XaX"  "X`X"  "X_X"  "X^X"  "X]X"  "X\\X" "X[X"  "XZX"  "XYX"  "XXX" 
+## [11] "XWX"  "XVX"  "XUX"  "XTX"  "XSX"  "XRX"  "XQX"  "XPX"  "XOX"  "XNX" 
+## [21] "XMX"  "XLX"  "XKX"  "XJX"  "XIX"  "XHX"  "XGX"  "XFX"  "XEX"  "XDX" 
+## [31] "XCX"  "XBX"  "XAX"  "X@X"  "X?X"  "X>X"  "X=X"  "X<X"  "X;X"  "X:X" 
+## [41] "X9X"  "X8X"  "X7X"  "X6X"  "X5X"  "X4X"  "X3X"  "X2X"  "X1X"  "X0X" 
+## [51] "X/X"  "X.X"  "X-X"  "X,X"  "X+X"  "X*X"  "X)X"  "X(X"  "X'X"  "X&X" 
+## [61] "X%X"  "X$X"  "X#X"
+```

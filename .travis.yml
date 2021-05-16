@@ -19,3 +19,7 @@ after_success:
 r_github_packages:
   - r-lib/covr
   - jimhester/lintr
+addons:
+    apt:
+        packages:
+            - libv8-dev

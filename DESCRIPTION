@@ -1,11 +1,15 @@
 Package: bracer
 Title: Brace Expansions
-Version: 1.1.2
+Version: 1.2.0
 Authors@R: 
-    person(given = "Trevor",
-           family = "Davis",
-           role = c("aut", "cre"),
-           email = "trevor.l.davis@gmail.com")
+    c(person(given = "Trevor",
+             family = "Davis",
+             role = c("aut", "cre"),
+             email = "trevor.l.davis@gmail.com"),
+      person(given = "Jon",
+             family = "Schlinkert",
+             role = "aut",
+             comment = "Author of the 'braces' Javascript library"))
 Description: Performs brace expansions on strings.  Made popular by Unix shells, brace expansion allows users to concisely generate certain character vectors by taking a single string and (recursively) expanding the comma-separated lists and double-period-separated integer and character sequences enclosed within braces in that string.  The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 URL: https://github.com/trevorld/bracer
 BugReports: https://github.com/trevorld/bracer/issues
@@ -14,5 +18,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat
-RoxygenNote: 7.0.0
+    testthat,
+    V8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1

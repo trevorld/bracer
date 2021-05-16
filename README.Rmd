@@ -14,6 +14,7 @@ Examples
 
 ```{r examples}
 library("bracer")
+options(bracer.engine = "r")
 expand_braces("Foo{A..F}")
 expand_braces("Foo{01..10}")
 expand_braces("Foo{A..E..2}{1..5..2}")
@@ -49,13 +50,39 @@ To install the developmental version use the following command in R:
 remotes::install_github("trevorld/bracer")
 ```
 
-Caveats
--------
+Installing the suggested ``V8`` package will enable use of the javascript alternative parser:
 
-``bracer`` currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
+```{r install_v8, eval=FALSE}
+install.packages("V8")
+```
+
+Limitations of pure R parser and alternative javascript parser
+--------------------------------------------------------------
+
+The ``bracer`` pure R parser currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 
 1. Unbalanced braces e.g. ``{{a,d}`` (but you could use an escaped brace instead ``\\{{a,d}``)
 2. Using surrounding quotes to escape terms e.g. ``{'a,b','c'}`` (but you could use an escaped comma instead  ``{a\\,b,c}``)
 3. Escaped braces within comma-separated lists e.g. ``{a,b\\}c,d}``
 4. (Non-escaping) backslashes before braces e.g. ``{a,\\\\{a,b}c}``
 5. Sequences from letters to non-letter ASCII characters e.g. ``X{a..#}X``
+
+```{r r_engine}
+options(bracer.engine = "r")
+expand_braces("{{a,d}")
+expand_braces("{'a,b','c'}")
+expand_braces("{a,b\\}c,d}")
+expand_braces("{a,\\\\{a,b}c}")
+expand_braces("X{a..#}X")
+```
+
+However if the 'V8' suggested R package is installed we can instead use an embedded version of the [braces](https://github.com/micromatch/braces) Javascript library which can correctly handle these edge cases.  To do so we need to set the bracer "engine" to "v8".
+
+```{r v8_engine}
+options(bracer.engine = "v8")
+expand_braces("{{a,d}")
+expand_braces("{'a,b','c'}")
+expand_braces("{a,b\\}c,d}")
+expand_braces("{a,\\\\{a,b}c}")
+expand_braces("X{a..#}X")
+```
