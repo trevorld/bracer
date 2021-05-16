@@ -16,7 +16,6 @@ BugReports: https://github.com/trevorld/bracer/issues
 Imports: stringr
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Suggests: 
     testthat,
     V8

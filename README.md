@@ -92,7 +92,8 @@ glob("R/*.{R,r,S,s}")
 ```
 
 ```
-## [1] "R/engine-r.R"  "R/engine-v8.R" "R/expand.R"    "R/glob.R"
+## [1] "R/engine-r.R"      "R/engine-v8.R"     "R/expand_braces.R"
+## [4] "R/glob.R"
 ```
 
 Installation          

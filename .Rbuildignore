@@ -7,3 +7,4 @@
 ^.appveyor.yml$
 ^.travis.yml$
 ^.lintr$
+^_pkgdown.yml$

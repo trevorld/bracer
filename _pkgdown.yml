@@ -1,0 +1,4 @@
+destination: "/home/trevorld/a/projects/websites/R/bracer/"
+url: "https://trevorldavis.com/R/bracer"
+development:
+    mode: auto
