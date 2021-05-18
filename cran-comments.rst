@@ -5,7 +5,8 @@
 
 * local (linux, R 4.0.5) 
 * win-builder (windows, R devel) 
-* r-hub (Solaris, R-beta)
+* r-hub (solaris, R-beta)
+* r-hub (macOS, R release)
 * appveyor (windows, R devel) 
 * appveyor (windows, R release) 
 * travis-ci (linux, R devel) 
