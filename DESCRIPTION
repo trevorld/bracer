@@ -1,6 +1,6 @@
 Package: bracer
 Title: Brace Expansions
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: 
     c(person(given = "Trevor",
              family = "Davis",

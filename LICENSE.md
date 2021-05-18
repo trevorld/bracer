@@ -1,7 +1,8 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2019 Trevor L. Davis
+Copyright © 2019-2021 Trevor L. Davis
+Copyright © 2014-2018 Jon Schlinkert
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
