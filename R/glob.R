@@ -9,7 +9,7 @@
 #' @examples
 #'   dir <- system.file("R", package="bracer")
 #'   path <- file.path(dir, "*.{R,r,S,s}")
-#'   glob(path)
+#'   glob(path, engine = "r")
 #' @export
 glob <- function(paths, ..., engine = getOption("bracer.engine", NULL)) {
     paths <- expand_braces(paths, engine = engine)

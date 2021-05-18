@@ -32,11 +32,11 @@ sequences enclosed within braces in that string.
 The double-period-separated numeric integer expansion also supports padding the resulting numbers with zeros.
 }
 \examples{
-  expand_braces("Foo{A..F}")
-  expand_braces("Foo{01..10}")
-  expand_braces("Foo{A..E..2}{1..5..2}")
-  expand_braces("Foo{-01..1}")
-  expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
-  expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
-  str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+  expand_braces("Foo{A..F}", engine = "r")
+  expand_braces("Foo{01..10}", engine = "r")
+  expand_braces("Foo{A..E..2}{1..5..2}", engine = "r")
+  expand_braces("Foo{-01..1}", engine = "r")
+  expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}", engine = "r")
+  expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"), engine = "r")
+  str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"), engine = "r")
 }

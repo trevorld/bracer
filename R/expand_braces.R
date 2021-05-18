@@ -17,13 +17,13 @@
 #'         \code{str_expand_braces} returns a list of character vectors.
 #'
 #' @examples
-#'   expand_braces("Foo{A..F}")
-#'   expand_braces("Foo{01..10}")
-#'   expand_braces("Foo{A..E..2}{1..5..2}")
-#'   expand_braces("Foo{-01..1}")
-#'   expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
-#'   expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
-#'   str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
+#'   expand_braces("Foo{A..F}", engine = "r")
+#'   expand_braces("Foo{01..10}", engine = "r")
+#'   expand_braces("Foo{A..E..2}{1..5..2}", engine = "r")
+#'   expand_braces("Foo{-01..1}", engine = "r")
+#'   expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}", engine = "r")
+#'   expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"), engine = "r")
+#'   str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"), engine = "r")
 #' @import stringr
 #' @export
 expand_braces <- function(string, engine = getOption("bracer.engine", NULL)) {

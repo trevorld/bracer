@@ -12,8 +12,6 @@ test_that("Some simple test cases", {
     seb <- str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"), engine = "r")
     expect_equal(length(eb), 9)
     expect_equal(length(seb), 3)
-    if (!isTRUE(getOption("bracer.engine.inform")))
-        expect_message(expand_braces("{C..F}"), "Setting 'engine' argument to")
 })
 
 test_that("Bash 4.3 unit tests", {
@@ -276,6 +274,12 @@ test_that("Bash 4.3 unit tests", {
 
 test_that("Bash 4.3 unit tests with 'expand_braces_v8'", {
     skip_if_not_installed("V8")
+    try_v8 <- try(expand_braces_v8("{a..d}"))
+    skip_if(inherits(try_v8, "try-error"), "Seems like a faulty V8 installation")
+
+    if (!isTRUE(getOption("bracer.engine.inform")))
+        expect_message(expand_braces("{C..F}"), "Setting 'engine' argument to")
+
     expect_equal(expand_braces_v8("{1\\.2}"), c("{1.2}"))
     expect_equal(expand_braces_v8("A{b,{d,e},{f,g}}Z"), c("AbZ", "AdZ", "AeZ", "AfZ", "AgZ"))
     ans <- c("PRE-aa-POST", "PRE-ab-POST", "PRE-aa-POST", "PRE-ab-POST",

@@ -1,3 +1,8 @@
+bracer 1.2.1
+============
+
+* No user-facing changes (we tweaked examples/tests so that the package check should still pass on platforms with buggy V8 installations).
+
 bracer 1.2.0
 ============
 
