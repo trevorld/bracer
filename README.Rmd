@@ -2,15 +2,21 @@ bracer
 ======
 
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/bracer)](https://cran.r-project.org/package=bracer)
-[![Travis-CI Build Status](https://travis-ci.org/trevorld/bracer.png?branch=master)](https://travis-ci.org/trevorld/bracer)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/trevorld/bracer?branch=master&svg=true)](https://ci.appveyor.com/project/trevorld/bracer)
-[![Coverage Status](https://img.shields.io/codecov/c/github/trevorld/bracer/master.svg)](https://codecov.io/github/trevorld/bracer?branch=master)
-[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+[![R-CMD-check](https://github.com/trevorld/bracer/workflows/R-CMD-check/badge.svg)](https://github.com/trevorld/bracer/actions)
+[![Coverage Status](https://codecov.io/github/trevorld/bracer/branch/master/graph/badge.svg)](https://app.codecov.io/github/trevorld/bracer?branch=master)
+
+### Table of Contents
+
+* [Overview](#overview)
+* [Examples](#examples)
+* [Installation](#installation)
+* [Limitations of pure R parser and alternative javascript parser](#limitations)
+
+## <a name="overview">Overview</a>
 
 ``bracer`` provides support for performing [brace expansions](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Brace-Expansion) on strings in R.
 
-Examples
---------
+## <a name="examples">Examples</a>
 
 ```{r examples}
 library("bracer")
@@ -35,8 +41,7 @@ str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
 glob("R/*.{R,r,S,s}")
 ```
 
-Installation          
-------------
+## <a name="installation">Installation</a>
 
 To install the release version on CRAN use the following command in R:
 
@@ -56,8 +61,7 @@ Installing the suggested ``V8`` package will enable use of the javascript altern
 install.packages("V8")
 ```
 
-Limitations of pure R parser and alternative javascript parser
---------------------------------------------------------------
+## <a name="limitations">Limitations of pure R parser and alternative javascript parser</a>
 
 The ``bracer`` pure R parser currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 

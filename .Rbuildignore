@@ -8,3 +8,4 @@
 ^.travis.yml$
 ^.lintr$
 ^_pkgdown.yml$
+^\.github$
