@@ -1,3 +1,8 @@
+bracer 1.2.2
+============
+
+* Add a vignette.
+
 bracer 1.2.1
 ============
 
