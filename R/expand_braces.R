@@ -1,7 +1,7 @@
 #' Bash-style brace expansion
 #'
-#' \code{expand_braces} performs brace expansions on strings,
-#' \code{str_expand_braces} is an alternate function that returns a list of character vectors.
+#' `expand_braces()` performs brace expansions on strings.
+#' `str_expand_braces()` is an alternate that returns a list of character vectors.
 #' Made popular by Unix shells, brace expansion allows users to concisely generate
 #' certain character vectors by taking a single string and (recursively) expanding
 #' the comma-separated lists and double-period-separated integer and character
@@ -13,8 +13,8 @@
 #'               If `NULL` use `'v8'` if `'V8'` package detected else use `'r'`;
 #'               in either case send a `message()` about the choice
 #'               unless `getOption(bracer.engine.inform')` is `FALSE`.
-#' @return \code{expand_braces} returns a character vector while
-#'         \code{str_expand_braces} returns a list of character vectors.
+#' @return `expand_braces()` returns a character vector while
+#'         `str_expand_braces()` returns a list of character vectors.
 #'
 #' @examples
 #'   expand_braces("Foo{A..F}", engine = "r")

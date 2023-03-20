@@ -46,7 +46,7 @@ get_locations <- function(string) {
     df <- df[order(df$index), ]
     df$level <- 0
     level <- 1
-    for (ii in seq(length = nrow(df))) {
+    for (ii in seq_len(nrow(df))) {
         if (df[ii, 2] == "{") {
             df[ii, 3] <- level
             level <- level + 1

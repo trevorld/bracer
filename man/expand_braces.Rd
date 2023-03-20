@@ -19,12 +19,12 @@ in either case send a \code{message()} about the choice
 unless \verb{getOption(bracer.engine.inform')} is \code{FALSE}.}
 }
 \value{
-\code{expand_braces} returns a character vector while
-\code{str_expand_braces} returns a list of character vectors.
+\code{expand_braces()} returns a character vector while
+\code{str_expand_braces()} returns a list of character vectors.
 }
 \description{
-\code{expand_braces} performs brace expansions on strings,
-\code{str_expand_braces} is an alternate function that returns a list of character vectors.
+\code{expand_braces()} performs brace expansions on strings.
+\code{str_expand_braces()} is an alternate that returns a list of character vectors.
 Made popular by Unix shells, brace expansion allows users to concisely generate
 certain character vectors by taking a single string and (recursively) expanding
 the comma-separated lists and double-period-separated integer and character

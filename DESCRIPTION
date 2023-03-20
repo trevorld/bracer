@@ -1,6 +1,6 @@
 Package: bracer
 Title: Brace Expansions
-Version: 1.2.2
+Version: 1.2.3-0
 Authors@R: c(person("Trevor L", "Davis", role=c("aut", "cre"),
              email="trevor.l.davis@gmail.com",
              comment = c(ORCID = "0000-0001-6341-4639")),
@@ -19,4 +19,4 @@ Suggests:
     V8
 VignetteBuilder: knitr, rmarkdown
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3

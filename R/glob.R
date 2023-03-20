@@ -1,11 +1,11 @@
 #' Brace and Wildcard expansion on file paths
 #'
-#' \code{glob} is a wrapper around \code{Sys.glob} that uses
-#' \code{expand_braces} to support both brace and wildcard
+#' `glob()` is a wrapper around [Sys.glob()] that uses
+#' [expand_braces()] to support both brace and wildcard
 #' expansion on file paths.
 #' @param paths character vector of patterns for relative or absolute filepaths.
 #' @inheritParams expand_braces
-#' @param ... Passed to \code{Sys.glob}
+#' @param ... Passed to [Sys.glob()]
 #' @examples
 #'   dir <- system.file("R", package="bracer")
 #'   path <- file.path(dir, "*.{R,r,S,s}")

@@ -9,7 +9,7 @@ glob(paths, ..., engine = getOption("bracer.engine", NULL))
 \arguments{
 \item{paths}{character vector of patterns for relative or absolute filepaths.}
 
-\item{...}{Passed to \code{Sys.glob}}
+\item{...}{Passed to \code{\link[=Sys.glob]{Sys.glob()}}}
 
 \item{engine}{If \code{'r'} use a pure R parser.
 If \code{'v8'} use the 'braces' Javascript parser via the suggested V8 package.
@@ -18,8 +18,8 @@ in either case send a \code{message()} about the choice
 unless \verb{getOption(bracer.engine.inform')} is \code{FALSE}.}
 }
 \description{
-\code{glob} is a wrapper around \code{Sys.glob} that uses
-\code{expand_braces} to support both brace and wildcard
+\code{glob()} is a wrapper around \code{\link[=Sys.glob]{Sys.glob()}} that uses
+\code{\link[=expand_braces]{expand_braces()}} to support both brace and wildcard
 expansion on file paths.
 }
 \examples{

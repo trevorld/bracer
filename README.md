@@ -14,9 +14,10 @@ bracer
 
 ## <a name="overview">Overview</a>
 
-``bracer`` provides support for performing [brace expansions](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Brace-Expansion) on strings in R.
+``{bracer}`` provides support for performing [brace expansions](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Brace-Expansion) on strings in R.
 
 ## <a name="examples">Examples</a>
+
 
 ```r
 library("bracer")
@@ -62,7 +63,7 @@ expand_braces("Foo{{d..d},{bar,biz}}.{py,bash}")
 ## [6] "Foobiz.bash"
 ```
 
-``expand_braces`` is vectorized and returns one big character vector of all the brace expansions.  ``str_expand_braces`` is an alternative that returns a list of character vectors.
+``expand_braces()`` is vectorized and returns one big character vector of all the brace expansions.  ``str_expand_braces()`` is an alternative that returns a list of character vectors.
 
 
 ```r
@@ -89,7 +90,7 @@ str_expand_braces(c("Foo{A..F}", "Bar.{py,bash}", "{{Biz}}"))
 ## [1] "{{Biz}}"
 ```
 
-``glob`` is a wrapper around ``Sys.glob`` that uses ``expand_braces`` to support both brace and wildcard expansion on file paths.
+``glob()`` is a wrapper around ``Sys.glob()`` that uses ``expand_braces()`` to support both brace and wildcard expansion on file paths.
 
 
 ```r
@@ -117,7 +118,7 @@ To install the developmental version use the following command in R:
 remotes::install_github("trevorld/bracer")
 ```
 
-Installing the suggested ``V8`` package will enable use of the javascript alternative parser:
+Installing the suggested ``{V8}`` package will enable use of the javascript alternative parser:
 
 
 ```r
@@ -126,7 +127,7 @@ install.packages("V8")
 
 ## <a name="limitations">Limitations of pure R parser and alternative javascript parser</a>
 
-The ``bracer`` pure R parser currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
+The ``{bracer}`` pure R parser currently does not properly support the "correct" (Bash-style) brace expansion under several edge conditions such as:
 
 1. Unbalanced braces e.g. ``{{a,d}`` (but you could use an escaped brace instead ``\\{{a,d}``)
 2. Using surrounding quotes to escape terms e.g. ``{'a,b','c'}`` (but you could use an escaped comma instead  ``{a\\,b,c}``)
@@ -176,7 +177,7 @@ expand_braces("X{a..#}X")
 ## [1] "X{a..#}X"
 ```
 
-However if the 'V8' suggested R package is installed we can instead use an embedded version of the [braces](https://github.com/micromatch/braces) Javascript library which can correctly handle these edge cases.  To do so we need to set the bracer "engine" to "v8".
+However if the ``{V8}`` suggested R package is installed we can instead use an embedded version of the [braces](https://github.com/micromatch/braces) Javascript library which can correctly handle these edge cases.  To do so we need to set the bracer "engine" to "v8".
 
 
 ```r
