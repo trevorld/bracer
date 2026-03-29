@@ -12,6 +12,6 @@
 #'   glob(path, engine = "r")
 #' @export
 glob <- function(paths, ..., engine = getOption("bracer.engine", NULL)) {
-    paths <- expand_braces(paths, engine = engine)
-    Sys.glob(paths, ...)
+	paths <- expand_braces(paths, engine = engine)
+	Sys.glob(paths, ...)
 }
