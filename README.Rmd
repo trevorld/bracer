@@ -2,7 +2,7 @@ bracer
 ======
 
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/bracer)](https://cran.r-project.org/package=bracer)
-[![R-CMD-check](https://github.com/trevorld/bracer/workflows/R-CMD-check/badge.svg)](https://github.com/trevorld/bracer/actions)
+[![R-CMD-check](https://github.com/trevorld/bracer/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/trevorld/bracer/actions)
 [![Coverage Status](https://codecov.io/github/trevorld/bracer/branch/master/graph/badge.svg)](https://app.codecov.io/github/trevorld/bracer?branch=master)
 
 ### Table of Contents
