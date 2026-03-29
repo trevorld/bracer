@@ -27,29 +27,31 @@
 #' @import stringr
 #' @export
 expand_braces <- function(string, engine = getOption("bracer.engine", NULL)) {
-    c(str_expand_braces(string, engine = engine), recursive = TRUE)
+	c(str_expand_braces(string, engine = engine), recursive = TRUE)
 }
 
 #' @rdname expand_braces
 #' @export
 str_expand_braces <- function(string, engine = getOption("bracer.engine", NULL)) {
-    if (!is.null(engine)) engine <- tolower(engine)
-    if (is.null(engine)) {
-        if (requireNamespace("V8", quietly = TRUE)) {
-            engine <- "v8"
-            if (!isTRUE(getOption("bracer.engine.inform")))
-                message("Setting 'engine' argument to 'v8' (suggested package 'V8' detected)")
-        } else {
-            engine <- "r"
-            if (!isTRUE(getOption("bracer.engine.inform")))
-                warning("Setting 'engine' argument to 'r' (suggested package 'V8' not detected)")
-        }
-    }
-    if (engine == "v8" && !requireNamespace("V8", quietly = TRUE)) {
-        engine <- "r"
-        message("Suggested package 'V8' not detected. Instead setting 'engine' argument to 'r'")
-    }
-    switch(engine,
-           v8 = lapply(string, expand_braces_v8),
-           r = lapply(string, expand_braces_r))
+	if (!is.null(engine)) {
+		engine <- tolower(engine)
+	}
+	if (is.null(engine)) {
+		if (requireNamespace("V8", quietly = TRUE)) {
+			engine <- "v8"
+			if (!isTRUE(getOption("bracer.engine.inform"))) {
+				message("Setting 'engine' argument to 'v8' (suggested package 'V8' detected)")
+			}
+		} else {
+			engine <- "r"
+			if (!isTRUE(getOption("bracer.engine.inform"))) {
+				warning("Setting 'engine' argument to 'r' (suggested package 'V8' not detected)")
+			}
+		}
+	}
+	if (engine == "v8" && !requireNamespace("V8", quietly = TRUE)) {
+		engine <- "r"
+		message("Suggested package 'V8' not detected. Instead setting 'engine' argument to 'r'")
+	}
+	switch(engine, v8 = lapply(string, expand_braces_v8), r = lapply(string, expand_braces_r))
 }
