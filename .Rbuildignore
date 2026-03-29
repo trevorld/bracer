@@ -4,8 +4,12 @@
 ^Rakefile$
 ^notes.txt$
 ^LICENSE.md$
-^.appveyor.yml$
-^.travis.yml$
-^.lintr$
+^\.air.toml$
+^\.appveyor.yml$
+^\.editorconfig$
+^\.travis.yml$
+^\.lintr$
+^\.pre-commit-config.yaml$
 ^_pkgdown.yml$
+^\.git$
 ^\.github$
