@@ -1,3 +1,8 @@
+bracer 1.2.3 (development)
+==========================
+
+* No user-facing changes.
+
 bracer 1.2.2
 ============
 
